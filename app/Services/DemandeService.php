@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Demande;
 use App\Models\Demandeur;
+use App\Models\Etablissement;
 use App\Models\ManifestationScientifique;
 use App\Models\MissionStage;
 use App\Models\Montant;
@@ -287,13 +288,31 @@ class DemandeService implements DemandeServiceInterface
     }
 
     public function getLettre($id){
-        $demande = Demande::find($id);
-        if($demande->etat()->libelle == 'acceptee'){
-            $soutien = Soutien::where('demande_id',$id);
+        $demande = Demande::find($id)->first();
+        $etat = Demande::find($id)->etat()->first();
+
+        if($etat->libelle == 'acceptee'){
+            $soutien = Soutien::where('demande_id',$id)->first();
             $montantCalcule = $this->soutienService->calculateSum($soutien->id);
-            
+            $demandeur = Demandeur::find($demande->demandeur_id);
+            $montants = $this->soutienService->findMontants($soutien->id);
+            $etablissement = Etablissement::find($demandeur->etablissement_id);
+            $reponse = new ResponseApi();
+            $reponse->status = 200;
+            $reponse->result =[
+                'demande' => $demande,
+                'demandeur' => $demandeur,
+                'montants' => $montants,
+                'etablissement' => $etablissement,
+                'montantCalcule' => $montantCalcule
+            ];
+            return response()->json(
+                    $reponse);
 
         }
+
+
+
     }
 
 

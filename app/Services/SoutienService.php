@@ -12,7 +12,8 @@ class SoutienService implements SoutienServiceInterface
 
 
     public function findMontants($id){
-
+        $montant = Montant::where('soutien_id',$id)->get();
+        return $montant;
     }
 
     public function calculateSum($id){
