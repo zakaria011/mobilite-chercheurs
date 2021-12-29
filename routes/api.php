@@ -46,3 +46,6 @@ Route::get('/demandes/getLettre/{id}',[DemandeController::class,'getLettre']);
 
 
 Route::get('/demandeur/findByUser/{id}',[DemandeurController::class,'findByUser']);
+
+Route::get('/files/getFilesByDemandeur/{id}',[FileController::class,'getFilesByDemandeur']);
+Route::get('/files/downloadFile/{name}',[FileController::class,'downloadFile']);

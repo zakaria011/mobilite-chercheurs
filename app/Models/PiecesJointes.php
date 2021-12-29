@@ -9,7 +9,7 @@ class PiecesJointes extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id','path','name','extention','demandeur_id'];
+    protected $fillable = ['id','path','name','completeNameFile','extention','demandeur_id'];
 
     public function demandeur(){
         return $this->belongsTo(Demandeur::class);

@@ -17,6 +17,7 @@ class CreatePiecesjointesTable extends Migration
             $table->id();
             $table->string('path');
             $table->string('extension')->nullable();
+            $table->string('completeNameFile')->nullable();
             $table->string('name')->nullable();
             $table->foreignId('demandeur_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
